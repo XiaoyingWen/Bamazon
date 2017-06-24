@@ -11,7 +11,7 @@ After the customer has selected the product and entered the quantity, the applic
 After each order has been handled, the application displays the sale items and prompt for order again.
 
 User case 1:
-The customer wants to order 50 candies at Bamazon, the application shows the order is made successfully and the total price is $25 .
+The customer wants to order 6 bowls at Bamazon, the application shows the order is made successfully and the total price is $25 .
 ![User Case 1](/images/usercase1.png)
 
 User case 2 :
