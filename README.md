@@ -11,7 +11,7 @@ After the customer has selected the product and entered the quantity, the applic
 After each order has been handled, the application displays the sale items and prompt for order again.
 
 User case 1:
-The customer wants to order 6 bowls at Bamazon, the application shows the order is made successfully and the total price is $25 .
+The customer wants to order 6 bowls at Bamazon, the application shows the order is made successfully and the total price is $25 .  The stock quantity of the item 'bowl' displayed in the product table was 594 before the order is made. After the order is made, the quantity of the item shown in the product table is 588 .
 ![User Case 1](/images/usercase1.png)
 
 User case 2 :
