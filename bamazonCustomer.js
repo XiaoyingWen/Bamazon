@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+require('console.table');
 var productsInStore = [];
 
 //get the MySQL DB connection
@@ -27,19 +28,20 @@ function makeOrder(){
 	//Include the ids, names, and prices of products for sale. DEPARTMENT_NAME, 
     var query = "SELECT ITEM_ID, PRODUCT_NAME, PRICE, STOCK_QUANTITY from PRODUCTS";
     dbconn.query(query, function(err, res) {
+    	if (err) 
+  			throw err;
+
+    	console.table(res);
     	//empty productsInStore array for reset
-    	console.log("Store Products Information");
-    	console.log("-----------------------------------------------------------------------");
     	productsInStore.length = 0; 
         for (var i = 0; i < res.length; i++) {
-          console.log(res[i].ITEM_ID + ' ' + res[i].PRODUCT_NAME + ' ' + res[i].PRICE + ' ' + res[i].STOCK_QUANTITY);
           productsInStore.push({
 			  name: res[i].PRODUCT_NAME,
 			  value: res[i].ITEM_ID,
 			  //short: 'The long option'
 			});
      	}
-    	console.log("-----------------------------------------------------------------------");
+
 		// then prompt users with two messages.
 		// The first should ask them the ID of the product they would like to buy.
 		// The second message should ask how many units of the product they would like to buy.
@@ -61,6 +63,9 @@ function makeOrder(){
 	    	//console.log(answers.itemId + ' ' + answers.quantity);
 	      	var query = "SELECT PRODUCT_NAME, PRICE, STOCK_QUANTITY from PRODUCTS WHERE ITEM_ID = ?";
 	      	dbconn.query(query, [answers.itemId], function(err, res) {
+	      		    if (err) 
+  						throw err;
+  					
 			        var stockQuantity = res[0].STOCK_QUANTITY;
 			        var price = res[0].PRICE;
 			        //console.log(stockQuantity + ' ' + price);
