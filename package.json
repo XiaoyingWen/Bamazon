@@ -1,0 +1,23 @@
+{
+  "name": "bamazonapp",
+  "version": "1.0.0",
+  "description": "store app",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XiaoyingWen/Bamazon.git"
+  },
+  "author": "xiaoying",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XiaoyingWen/Bamazon/issues"
+  },
+  "homepage": "https://github.com/XiaoyingWen/Bamazon#readme",
+  "dependencies": {
+    "inquirer": "^3.1.1",
+    "mysql": "^2.13.0"
+  }
+}
