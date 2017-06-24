@@ -28,6 +28,8 @@ function makeOrder(){
     var query = "SELECT ITEM_ID, PRODUCT_NAME, PRICE, STOCK_QUANTITY from PRODUCTS";
     dbconn.query(query, function(err, res) {
     	//empty productsInStore array for reset
+    	console.log("Store Products Information");
+    	console.log("-----------------------------------------------------------------------");
     	productsInStore.length = 0; 
         for (var i = 0; i < res.length; i++) {
           console.log(res[i].ITEM_ID + ' ' + res[i].PRODUCT_NAME + ' ' + res[i].PRICE + ' ' + res[i].STOCK_QUANTITY);
@@ -37,7 +39,7 @@ function makeOrder(){
 			  //short: 'The long option'
 			});
      	}
-
+    	console.log("-----------------------------------------------------------------------");
 		// then prompt users with two messages.
 		// The first should ask them the ID of the product they would like to buy.
 		// The second message should ask how many units of the product they would like to buy.
@@ -52,18 +54,17 @@ function makeOrder(){
 			{
 		      name: "quantity",
 		      type: "input",
-		      message: "How many units of the product they would like to buy:"
+		      message: "How many units of the product you would like to order:"
 		    }]
 	    )
 	    .then(function(answers) {
-	    	console.log(answers.itemId + ' ' + answers.quantity);
+	    	//console.log(answers.itemId + ' ' + answers.quantity);
 	      	var query = "SELECT PRODUCT_NAME, PRICE, STOCK_QUANTITY from PRODUCTS WHERE ITEM_ID = ?";
 	      	dbconn.query(query, [answers.itemId], function(err, res) {
-		        if(res.length === 1) { //if the product is found by the id
 			        var stockQuantity = res[0].STOCK_QUANTITY;
 			        var price = res[0].PRICE;
 			        //console.log(stockQuantity + ' ' + price);
-			        // check if your store has enough of the product to meet the customer's request.
+			        // check if the store has enough of the product to meet the customer's request.
 			       	if(stockQuantity > answers.quantity) {
 			       		// if your store does have enough of the product,
 						// updating the SQL database to reflect the remaining quantity.
@@ -74,15 +75,14 @@ function makeOrder(){
 								if(updateQueryErr) {
 									throw updateQueryErr;
 								}
-								console.log("Total price: " + price * answers.quantity);
+								console.log("Thank you!  Your total price is: $" + price * answers.quantity + "\n");
 								makeOrder();
 						});
 			       	} else {
 			       		// If not, log a phrase like Insufficient quantity!, and then prevent the order from going through.
-			       		console.log("Insufficient quantity for your order of " + res[0].PRODUCT_NAME);
+			       		console.log("We are sorry. We have insufficient quantity of '" + res[0].PRODUCT_NAME + "'' for your order.\n");
 			       		makeOrder();
 			       	}
-			    } //end if the product is found by the id
 	      	});
 
 	    });
